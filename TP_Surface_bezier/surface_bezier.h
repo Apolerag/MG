@@ -5,8 +5,12 @@
 
 typedef struct
 {
-	bezier u;
-	bezier v;
+	Grille_quadruplet G;
+	int u; // le nombre de points affichés de la courbe
+	int v;
+	Grille_triplet courbeU;
+	Grille_triplet courbeV;
+	int affiche;
 
 } surface_bezier ; 
 
