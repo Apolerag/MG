@@ -21,7 +21,7 @@ void changement_surface_bezier(surface_bezier* sb)
 
 		if(sb->courbeU.grille != NULL)
 		{
-			for (i = 0; i < sb->courbeU.nb_lignes; ++i)
+			for (i = 0; i < sb->courbeU.nb_lignes; i++)
 			{
 				free(sb->courbeU.grille[i]);
 			}
@@ -30,7 +30,7 @@ void changement_surface_bezier(surface_bezier* sb)
 
 		if(sb->courbeV.grille != NULL)
 		{
-			for (i = 0; i < sb->courbeV.nb_lignes; ++i)
+			for (i = 0; i < sb->courbeV.nb_lignes; i++)
 			{
 				free(sb->courbeV.grille[i]);
 			}
@@ -49,25 +49,25 @@ void affiche_surface_bezier(surface_bezier* sb)
 	/* affichage de la grille de controle*/
 	if(sb->affiche)
 	{
-		for(i = 0; i < sb->G.nb_lignes; ++i)
+		for(i = 0; i < sb->G.nb_lignes; i++)
 		{
 			glBegin(GL_LINE_STRIP) ;
 
 			glColor3f(1.0, 1.0, 0.0);
 
-			for(j = 0; j < sb->G.nb_colonnes ; ++j)
+			for(j = 0; j < sb->G.nb_colonnes ; j++)
 				glVertex3f(sb->G.grille[i][j].x, sb->G.grille[i][j].y, 
 					       sb->G.grille[i][j].z);
 			glEnd();
 		}
 
-		for(i = 0; i < sb->G.nb_colonnes; ++i)
+		for(i = 0; i < sb->G.nb_colonnes; i++)
 		{
 			glBegin(GL_LINE_STRIP) ;
 
 			glColor3f(1.0, 1.0, 0.0);
 
-			for(j = 0; j < sb->G.nb_lignes ; ++j)
+			for(j = 0; j < sb->G.nb_lignes ; j++)
 				glVertex3f(sb->G.grille[j][i].x, sb->G.grille[j][i].y, 
 					       sb->G.grille[j][i].z);
 			glEnd();
@@ -75,26 +75,26 @@ void affiche_surface_bezier(surface_bezier* sb)
 		
 	}
 
-	for(i = 0; i < sb->courbeU.nb_lignes; ++i)
+	for(i = 0; i < sb->courbeU.nb_lignes; i++)
 	{
 		glBegin(GL_LINE_STRIP) ;
 
 		glColor3f(1.0, 0.0, 0.0);
 
-		for(j = 0; j < sb->courbeU.nb_colonnes ; ++j)
+		for(j = 0; j < sb->courbeU.nb_colonnes ; j++)
 			glVertex3f(sb->courbeU.grille[i][j].x, 
 					   sb->courbeU.grille[i][j].y, 
 				       sb->courbeU.grille[i][j].z);
 		glEnd();
 	}
 
-	for(i = 0; i < sb->courbeV.nb_lignes; ++i)
+	for(i = 0; i < sb->courbeV.nb_lignes; i++)
 	{
 		glBegin(GL_LINE_STRIP) ;
 
-		glColor3f(1.0, 0.0, 0.0);
+		glColor3f(0.0, 0.0, 1.0);
 
-		for(j = 0; j < sb->courbeV.nb_colonnes ; ++j)
+		for(j = 0; j < sb->courbeV.nb_colonnes ; j++)
 			glVertex3f(sb->courbeV.grille[i][j].x, 
 					   sb->courbeV.grille[i][j].y, 
 				       sb->courbeV.grille[i][j].z);

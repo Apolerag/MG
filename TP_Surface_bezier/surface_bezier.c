@@ -3,46 +3,56 @@
 void calcul_surface_bezier(surface_bezier *sb)
 {
 	int i,j;
-	Quadruplet *q;
+	Grille_quadruplet Ginv;
 
 	sb->courbeU.nb_lignes = sb->G.nb_lignes;
 	sb->courbeU.nb_colonnes = sb->u;
+	sb->courbeV.nb_lignes = sb->u;
+	sb->courbeV.nb_colonnes = sb->v;
+	printf("u %d, v %d \n", sb->u, sb->v);
+
+	Ginv.nb_lignes = sb->courbeU.nb_colonnes;
+	Ginv.nb_colonnes = sb->courbeU.nb_lignes;
 
 	ALLOUER(sb->courbeU.grille, sb->courbeU.nb_lignes);
-	for (i = 0; i < sb->courbeU.nb_lignes; ++i)
-	{
+	for (i = 0; i < sb->courbeU.nb_lignes; i++)
 		ALLOUER(sb->courbeU.grille[i], sb->courbeU.nb_colonnes);
-	}
 
-	sb->courbeV.nb_lignes = sb->G.nb_colonnes;
-	sb->courbeV.nb_colonnes = sb->v;
+	ALLOUER(Ginv.grille, Ginv.nb_lignes);
+	for (i = 0; i < Ginv.nb_lignes; i++)
+		ALLOUER(Ginv.grille[i], Ginv.nb_colonnes);
 
 	ALLOUER(sb->courbeV.grille, sb->courbeV.nb_lignes);
-	for (i = 0; i < sb->courbeV.nb_lignes; ++i)
-	{
+	for (i = 0; i < sb->courbeV.nb_lignes; i++)
 		ALLOUER(sb->courbeV.grille[i], sb->courbeV.nb_colonnes);
-	}
 
-	fprintf(stderr, "sb->courbeU.nb_colonnes %d\n", sb->courbeU.nb_colonnes);
-	fprintf(stderr, "sb->courbeU.nb_lignes %d\n", sb->courbeU.nb_lignes);
-	for (i = 0; i < sb->courbeU.nb_lignes; ++i)
+	for (i = 0; i < sb->courbeU.nb_lignes; i++)
 	{
-		Casteljau(sb->courbeU.grille[i] ,sb->G.grille[i], 
+		Casteljau(sb->courbeU.grille[i] ,sb->G.grille[i],
 			sb->G.nb_colonnes, sb->courbeU.nb_colonnes);
 	}
 
-	/*for (i = 0; i < sb->courbeV.nb_lignes; ++i)
+	for (i = 0; i < Ginv.nb_colonnes; i++)
 	{
-		ALLOUER(q, sb->G.nb_colonnes);
-		for (j = 0; j < sb->G.nb_colonnes; ++j)
+		for (j = 0; j < Ginv.nb_lignes; j++)
 		{
-			q[j] = sb->G.grille[j][i];
+			Ginv.grille[j][i].x = sb->courbeU.grille[i][j].x;
+			Ginv.grille[j][i].y = sb->courbeU.grille[i][j].y;
+			Ginv.grille[j][i].z = sb->courbeU.grille[i][j].z;
+			Ginv.grille[j][i].h = 1;
 		}
-*/
-		/*Casteljau(sb->courbeV.grille[i] ,q, 
-			sb->G.nb_colonnes, sb->courbeV.nb_colonnes);*/
-		/*free(q);
-	}*/
+	}
+
+
+	for (i = 0; i < sb->courbeV.nb_lignes; i++)
+	{
+		Casteljau(sb->courbeV.grille[i] ,Ginv.grille[i],
+			Ginv.nb_colonnes, sb->courbeV.nb_colonnes);
+	}
+
+	for (i = 0; i < Ginv.nb_lignes; i++)
+		free(Ginv.grille[i]);
+	free(Ginv.grille);
 }
 
 void Casteljau(Triplet * courbe, Quadruplet *poly, const int nbPoly, const int nbAffiche)
@@ -57,14 +67,14 @@ void Casteljau(Triplet * courbe, Quadruplet *poly, const int nbPoly, const int n
 
 	for(k = 0; k < nbAffiche; ++k)
 	{
-		for (j = 0; j < nbPoly; ++j)
+		for (j = 0; j < nbPoly; j++)
 		{
 			Quad[j] = poly[j];
 		}
 
 		for(j = nbPoly -1; j > 0 ; --j)
 		{
-			for(i = 0; i < j ; ++i)
+			for(i = 0; i < j ; i++)
 			{
 				//Calcul
 				Quad[i].x = (u * Quad[i+1].x) + (1-u) * Quad[i].x;	

@@ -10,8 +10,11 @@ typedef struct
 	int v;
 	Grille_triplet courbeU;
 	Grille_triplet courbeV;
+	Grille_triplet surface;
 	int affiche;
 
 } surface_bezier ; 
 
 void calcul_surface_bezier(surface_bezier *sb);
+
+void Casteljau(Triplet * courbe, Quadruplet *poly, const int nbPoly, const int nbAffiche);
