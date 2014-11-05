@@ -8,8 +8,8 @@ void changement_surface_bezier(surface_bezier* sb)
 
 
 	if ( CREATION(sb)
+		|| CHAMP_CHANGE(sb, G)
 		|| CHAMP_CHANGE(sb, affiche)
-		|| CHAMP_CHANGE(sb, G) 
 		|| CHAMP_CHANGE(sb, u)
 		|| CHAMP_CHANGE(sb, v))
 	{
@@ -19,22 +19,13 @@ void changement_surface_bezier(surface_bezier* sb)
 		if(sb->v < 0)
 			sb->v = 10;
 
-		if(sb->courbeU.grille != NULL)
+		if(sb->surface.grille != NULL)
 		{
-			for (i = 0; i < sb->courbeU.nb_lignes; i++)
+			for (i = 0; i < sb->surface.nb_lignes; i++)
 			{
-				free(sb->courbeU.grille[i]);
+				free(sb->surface.grille[i]);
 			}
-			free(sb->courbeU.grille);
-		}
-
-		if(sb->courbeV.grille != NULL)
-		{
-			for (i = 0; i < sb->courbeV.nb_lignes; i++)
-			{
-				free(sb->courbeV.grille[i]);
-			}
-			free(sb->courbeV.grille);
+			free(sb->surface.grille);
 		}
 
 		calcul_surface_bezier(sb);
@@ -75,29 +66,30 @@ void affiche_surface_bezier(surface_bezier* sb)
 		
 	}
 
-	for(i = 0; i < sb->courbeU.nb_lignes; i++)
-	{
-		glBegin(GL_LINE_STRIP) ;
-
-		glColor3f(1.0, 0.0, 0.0);
-
-		for(j = 0; j < sb->courbeU.nb_colonnes ; j++)
-			glVertex3f(sb->courbeU.grille[i][j].x, 
-					   sb->courbeU.grille[i][j].y, 
-				       sb->courbeU.grille[i][j].z);
-		glEnd();
-	}
-
-	for(i = 0; i < sb->courbeV.nb_lignes; i++)
+	/*affichage de la surface*/
+	for(i = 0; i < sb->surface.nb_lignes; i++)
 	{
 		glBegin(GL_LINE_STRIP) ;
 
 		glColor3f(0.0, 0.0, 1.0);
 
-		for(j = 0; j < sb->courbeV.nb_colonnes ; j++)
-			glVertex3f(sb->courbeV.grille[i][j].x, 
-					   sb->courbeV.grille[i][j].y, 
-				       sb->courbeV.grille[i][j].z);
+		for(j = 0; j < sb->surface.nb_colonnes ; j++)
+			glVertex3f(sb->surface.grille[i][j].x, 
+					   sb->surface.grille[i][j].y, 
+				       sb->surface.grille[i][j].z);
+		glEnd();
+	}
+
+	for(i = 0; i < sb->surface.nb_colonnes; i++)
+	{
+		glBegin(GL_LINE_STRIP) ;
+
+		glColor3f(0.0, 0.0, 1.0);
+
+		for(j = 0; j < sb->surface.nb_lignes ; j++)
+			glVertex3f(sb->surface.grille[j][i].x, 
+					   sb->surface.grille[j][i].y, 
+				       sb->surface.grille[j][i].z);
 		glEnd();
 	}
 }
