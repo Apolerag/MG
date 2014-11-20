@@ -24,8 +24,11 @@ static void changement(bSpline* b)
 		if(b->nbPointAffiche < 0)
 			b->nbPointAffiche = 10;
 
-		if(b->degre > b->pt.nb || b->degre < 0)
-			b->degre = b->pt.nb/2;
+		if(b->degre > b->pt.nb)
+			b->degre = b->pt.nb;
+
+		if( b->degre < 0)
+			b->degre = 0;
 
 		if(b->affiche != 0 && b->affiche != 1)
 			b->affiche = 1;
@@ -86,6 +89,6 @@ CLASSE(bSpline, bSpline,
 	CHANGEMENT(changement)
 	CHAMP_VIRTUEL(L_affiche_gl(affiche_bSpline))
 
-	MENU("TP_bSpline/bSpline")
+	MENU("TP_BSpline/BSpline")
 	EVENEMENT("Ctrl+BS")
 	)
