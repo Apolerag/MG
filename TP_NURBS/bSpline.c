@@ -41,10 +41,6 @@ void calcul_bSpline(bSpline* b)
 	ALLOUER(b->tabPointAffiche, b->nbPointAffiche);//Allocation du tableau de res
 	ALLOUER(Quad, b->pt.nb);//Allocation du tableau de Quad
 
-	if(Quad[0].h == 0) Quad[0].h = 1;
-    b->tabPointAffiche[0].x = Quad[0].x /Quad[0].h;
-    b->tabPointAffiche[0].y = Quad[0].y /Quad[0].h;
-	b->tabPointAffiche[0].z = Quad[0].z /Quad[0].h;
 	for(h = 0; h < b->nbPointAffiche; ++h)
 	{
 		for (j = 0; j < b->pt.nb; ++j)
@@ -60,14 +56,14 @@ void calcul_bSpline(bSpline* b)
 			for(i = r; i >= r-k+1+j ; --i)
 			{
 				//Calcul
-				Quad[j].x = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[j-1].x + 
-							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * b->tabPointAffiche[j-1].x;	
-				Quad[i].y = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[j-1].y + 
-							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * b->tabPointAffiche[j-1].y;	
-				Quad[i].z = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[j-1].z + 
-							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * b->tabPointAffiche[j-1].z;	
-				/*Quad[i].h = (u - b->V.table[i]) / (b->V[i+k-j] - b->V.table[i]) * Quad[j-1].h + 
-							(b->V[i+k-j] - u) / (b->V[i+k-j] - b->V.table[i]) * b->tabPointAffiche[j-1].h;	*/
+				Quad[i].x = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i].x + 
+							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) *  Quad[i-1].x;	
+				Quad[i].y = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i].y + 
+							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i-1].y;	
+				Quad[i].z = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i].z + 
+							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i-1].z;	
+				Quad[i].h = (u - b->V.table[i]) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i].h + 
+							(b->V.table[i+k-j] - u) / (b->V.table[i+k-j] - b->V.table[i]) * Quad[i-1].h;
 			}
 		}
 		if(Quad[r].h == 0) Quad[r].h = 1;
