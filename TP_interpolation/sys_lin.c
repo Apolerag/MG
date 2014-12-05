@@ -134,7 +134,7 @@ int resolution_systeme_lineaire(Grille_flottant  *A,
    return(0); 
 } 
 
-Grille_flottant Grille_flottant_transposee(Grille_flottant *original)
+Grille_flottant grille_flottant_transposee(Grille_flottant *original)
 {
   int i,j;  
   Grille_flottant copie;
@@ -153,3 +153,41 @@ Grille_flottant Grille_flottant_transposee(Grille_flottant *original)
   return copie;
 }
 
+Grille_flottant produit_matrice(Grille_flottant *a, Grille_flottant *b)
+{
+  int j, i, k ;
+  Grille_flottant res;
+  res.nb_lignes = a->nb_lignes;
+  res.nb_colonnes = b->nb_colonnes;
+
+  ALLOUER(res.grille, res.nb_lignes);
+  for (i=0 ; i < res.nb_lignes ; i++) {
+    ALLOUER(res.grille[i],res.nb_colonnes);
+  }
+
+  for(i=0; i < a->nb_lignes; ++i){
+    for(j=0; j < b->nb_colonnes; ++j) {
+      res.grille[i][j] = 0 ;
+      for(k=0; k < a->nb_colonnes; ++k)
+        res.grille[i][j] += a->grille[i][k]*b->grille[k][j] ;
+    }
+  }
+  return res;
+}
+
+Table_flottant produit_matrice_vecteur(Grille_flottant *mat, Table_flottant *v)
+{
+  int i, k ;
+  Table_flottant res;
+  res.nb = v->nb;
+
+  ALLOUER(res.table, res.nb);
+
+  for(i=0; i < mat->nb_lignes; ++i){
+    res.table[i] = 0 ;
+    for(k=0; k < mat->nb_colonnes; ++k)
+      res.table[i] += mat->grille[i][k]*v->table[k] ;
+    
+  }
+  return res;
+}

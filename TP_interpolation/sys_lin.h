@@ -24,5 +24,8 @@ int resolution_systeme_lineaire(Grille_flottant  *A,
 */
 /*-------------------------------------------------------------------------*/
 
-Grille_flottant Grille_flottant_transposee(Grille_flottant *original);
+Grille_flottant grille_flottant_transposee(Grille_flottant *original);
 
+Grille_flottant produit_matrice(Grille_flottant *a, Grille_flottant *b);
+
+Table_flottant produit_matrice_vecteur(Grille_flottant *mat, Table_flottant *v);

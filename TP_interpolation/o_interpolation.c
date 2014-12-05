@@ -14,82 +14,73 @@ static void changement(Interpolation* inter)
 
 	if ( CREATION(inter)
 		|| CHAMP_CHANGE(inter, points)
-		|| CHAMP_CHANGE(inter, parametrage))
+		|| CHAMP_CHANGE(inter, parametrage)
+		|| CHAMP_CHANGE(inter, degre)
+		|| CHAMP_CHANGE(inter, nbPointAffiche) 
+		|| CHAMP_CHANGE(inter,affiche))
 	{
-		Table_flottant f = parametrage(&inter->points, inter->parametrage) ;
-		int i;
+		if(inter->tabPointAffiche != NULL)		
+			free(inter->tabPointAffiche);
 
-		for (i = 0; i < f.nb; ++i)
-		{
-			fprintf(stderr, "%f ", f.table[i]);
-		}
-		fprintf(stderr, "\n ");
+		if(inter->pt.table != NULL)		
+			free(inter->pt.table);
 
+		if(inter->nbPointAffiche < 0)
+			inter->nbPointAffiche = 10;
+
+		if(inter->affiche != 0 && inter->affiche != 1)
+			inter->affiche = 1;
+		interpolation(inter);
+		calcul_Bezier(inter);
 	}
 }
 
-
-static void affiche_Bezier(Bezier* b)
+static void affiche_interpolation(Interpolation* inter)
 {
 	int j;
-	if(b->nbPointAffiche != 0)
+	if(inter->nbPointAffiche != 0)
 	{
 		glBegin(GL_LINE_STRIP) ;
 		glColor3f(1.0, 0.0, 0.0);
-		glVertex3f(b->pt.table[0].x, b->pt.table[0].y, b->pt.table[0].z);
-		for(j = 0; j < b->nbPointAffiche ; ++j)
-			glVertex3f(b->tabPointAffiche[j].x, b->tabPointAffiche[j].y, b->tabPointAffiche[j].z); 
+		glVertex3f(inter->pt.table[0].x, inter->pt.table[0].y, inter->pt.table[0].z);
+		for(j = 0; j < inter->nbPointAffiche ; ++j)
+			glVertex3f(inter->tabPointAffiche[j].x, inter->tabPointAffiche[j].y, inter->tabPointAffiche[j].z); 
 
-		glVertex3f(b->pt.table[b->pt.nb-1].x, b->pt.table[b->pt.nb-1].y, b->pt.table[b->pt.nb-1].z);
+		glVertex3f(inter->pt.table[inter->pt.nb-1].x, inter->pt.table[inter->pt.nb-1].y, inter->pt.table[inter->pt.nb-1].z);
 
 		glEnd();
 	}
 
-	if(b->affiche)
+	if(inter->affiche)
 	{
 		glBegin(GL_LINE_STRIP) ;
 
 		glColor3f(1.0, 1.0, 1.0);
 
-		for(j = 0; j < b->pt.nb ; ++j)
-			glVertex3f(b->pt.table[j].x, b->pt.table[j].y, b->pt.table[j].z);
+		for(j = 0; j < inter->pt.nb ; ++j)
+			glVertex3f(inter->pt.table[j].x, inter->pt.table[j].y, inter->pt.table[j].z);
 		glEnd();
 	}
-	
-	if( (b->borneInf != 0 || b->borneSup != 1) && b->afficheReparametre)
-	{
-		glBegin(GL_LINE_STRIP) ;
 
-		glColor3f(0.0, 1.0, 0.0);
+	glBegin(GL_POINTS) ;
 
-		for(j = 0; j < b->pt.nb ; ++j)
-			glVertex3f(b->ptReparametre[j].x, b->ptReparametre[j].y, b->ptReparametre[j].z);
-		glEnd();
+	glColor3f(0.0, 1.0, 0.0);
 
-		if(b->nbPointReparametre != 0)
-		{
-			glBegin(GL_LINE_STRIP) ;
-			glColor3f(0.0, 0.0, 1.0);
-			glVertex3f(b->ptReparametre[0].x, b->ptReparametre[0].y, b->ptReparametre[0].z);
-			for(j = 0; j < b->nbPointReparametre; ++j)
-				glVertex3f(b->tabPointReparametre[j].x, b->tabPointReparametre[j].y, b->tabPointReparametre[j].z); 
-
-			glVertex3f(b->ptReparametre[b->pt.nb-1].x, b->ptReparametre[b->pt.nb-1].y, b->ptReparametre[b->pt.nb-1].z);
-
-			glEnd();
-		}
-		
-	}
-
+	for(j = 0; j < inter->points.nb ; ++j)
+		glVertex3f(inter->points.table[j].x, inter->points.table[j].y, inter->points.table[j].z);
+	glEnd();
 	
 }
 
 CLASSE(Interpolation, Interpolation,      
 	CHAMP(points, LABEL("Points ") L_table_point P_table_triplet Obligatoire Extrait)
 	CHAMP(parametrage,LABEL("parametrage non uniforme") L_booleen Edite DEFAUT("1"))
+	CHAMP(degre, LABEL("degré") L_entier Edite DEFAUT("2")) 
+	CHAMP(nbPointAffiche, LABEL("Nombre de points à afficher: ") L_entier Affiche Edite Sauve DEFAUT("10"))
+	CHAMP(affiche,LABEL("Afficher les points de controle") L_booleen Edite DEFAUT("1"))
 	
 	CHANGEMENT(changement)
-	CHAMP_VIRTUEL(L_affiche_gl(affiche_Bezier))
+	CHAMP_VIRTUEL(L_affiche_gl(affiche_interpolation))
 
 	MENU("TP_Interpolation/Interpolation")
 	EVENEMENT("Ctrl+I")

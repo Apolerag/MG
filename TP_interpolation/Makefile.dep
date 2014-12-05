@@ -1,18 +1,3 @@
-bezier.o: bezier.c bezier.h \
- /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/eprintf.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_geometrie.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_memoire.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_widget.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_etat.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h
 figure.o: figure.c \
  /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
@@ -27,23 +12,8 @@ figure.o: figure.c \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_widget.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_etat.h \
  /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h bezier.h
-interpolation.o: interpolation.c interpolation.h bezier.h \
- /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/eprintf.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_geometrie.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_memoire.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_widget.h \
- /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_etat.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h \
  /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h
-o_bezier.o: o_bezier.c bezier.h \
+interpolation.o: interpolation.c interpolation.h \
  /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/eprintf.h \
@@ -56,11 +26,10 @@ o_bezier.o: o_bezier.c bezier.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_memoire.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_widget.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_etat.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h \
- /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h sys_lin.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h sys_lin.h \
  /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/u_xt_interface.h \
  /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/o_interface.h \
- /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/u_table.h
+ /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h
 o_cerc.o: o_cerc.c \
  /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
@@ -77,6 +46,25 @@ o_cerc.o: o_cerc.c \
  /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h \
  /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/u_table.h \
  /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h figure.h
+o_interpolation.o: o_interpolation.c \
+ /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/eprintf.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec_base.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_geometrie.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/codec.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/l_liste.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_memoire.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_widget.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_etat.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_base.h interpolation.h \
+ sys_lin.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/u_xt_interface.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/o_interface.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../TYPES/t_geometrie.h \
+ /home/apolerag/NE-2.5/TP_interpolation/../OBJETS/u_table.h
 o_sph.o: o_sph.c \
  /home/apolerag/NE-2.5/TP_interpolation/../COEUR/o_objet.h \
  /home/apolerag/NE-2.5/TP_interpolation/../UTILITAIRES/u_base.h \

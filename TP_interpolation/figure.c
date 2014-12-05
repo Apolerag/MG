@@ -2,8 +2,6 @@
 #include "t_geometrie.h"
 #include <math.h>
 
-#include "bezier.h"
-
 double *calcul_cercle(double *centre, double rayon, int nb_points)
 {               
  int j;
